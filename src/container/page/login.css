@@ -1,0 +1,43 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* div[class^="card"] { */
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.wrapper {
+    perspective: 1000px;
+}
+.content {
+    height: 30rem;
+    width: 20rem;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease-in-out;
+}
+/* .content:hover {
+    transform: rotateY(180deg);
+} */
+.change {
+    transform: rotateY(180deg);
+}
+.front, .back {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    border-radius: .3rem;
+}
+.front {
+    background-color: lightseagreen;
+}
+.back {
+    background-color: green;
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+}
