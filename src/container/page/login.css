@@ -1,3 +1,5 @@
+@import '../global.css';
+
 * {
     margin: 0;
     padding: 0;
@@ -9,7 +11,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 .wrapper {
     perspective: 1000px;
@@ -31,10 +32,14 @@ body {
     height: 100%;
     width: 100%;
     position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     border-radius: .3rem;
 }
 .front {
-    background-color: lightseagreen;
+    background-color: var(--color-three);
 }
 .back {
     background-color: green;
