@@ -6,6 +6,7 @@ import './login.css'
 
 export const Login = () => {
     const [mode, setMode] = useState<boolean>(true)
+    const [remember, setRemember] = useState<boolean>(true)
     const [user, setUser] = useState<User>(initialUser)
     const [userAuth, setUserAuth] = useState<UserAuth>(initialUserAuth)
 
@@ -33,13 +34,18 @@ export const Login = () => {
             <button onClick={()=>setMode(true)} disabled={mode}>Sign</button>
             <button onClick={()=>setMode(false)} disabled={!mode}>Signup</button>
             <div className={mode?`card content`:`card content change`}>
-                <div className='card front container'>
+                <div className='card front'>
                     <GInput onChange={handleInputChangeAuth} name='username'></GInput>
                     <GInput onChange={handleInputChangeAuth} type="password" name='password'></GInput>
                     <GInput onChange={handleInputChangeAuth} name='totpKey'></GInput>
+                    <div>
+                        <input type="checkbox" id="remember" name="remember" checked={remember} onClick={()=>setRemember(!remember)} />
+                        <label htmlFor="remember">Remember me</label>
+                        <a href='#'>forgot password</a>
+                    </div>
                     <button onClick={loginUser}>button</button>
                 </div>
-                <div className='card back container'>
+                <div className='card back'>
                     <GInput onChange={handleInputChange} name='username'></GInput>
                     <GInput onChange={handleInputChange} type="password" name='password'></GInput>
                     <GInput onChange={handleInputChange} name='email'></GInput>
