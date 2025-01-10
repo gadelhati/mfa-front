@@ -1,44 +1,37 @@
 .container {
-    font-size: .9rem;
-    font-family: Segoe UI, sans-serif;
-    margin-bottom: -.6rem;
-    padding: 1rem;
+    display: flex;
+    padding: .8rem;
 }
-.container input {
-    font-size: 100%;
-    margin: .15rem;
-    padding: 0.7rem;
+.container > input, button {
+    width: 15rem;
+    text-align: center;
+    padding: .9rem;
     outline: none;
     border: none;
     border-radius: .3rem;
     background-color: var(--color-sixth);
-    width: '100%';
 }
-.container input:is(.container input[data-tip='1']) {
+.container > input:is(.container input[data-tip='1']) {
     background-color: #D56062;
 }
-.container input:is(.container input[data-tip='1'])~label {
+.container > input:is(.container input[data-tip='1'])~label {
     color: white;
 }
-.container label {
-    font-size: 100%;
+.container > label {
     position: absolute;
     left: 50%;
-    transform: translate(-50%);
-    padding: 0.7em;
+    transform: translate(-50%, 40%);
     pointer-events: none;
     transition: all 0.3s ease;
 }
-.container input:focus ~ div {
+.container > input:focus ~ div {
     transform: 'scaleX(1)';
 }
-.container input:is(.container input:focus, .container input:valid)~label {
+.container > input:is(.container input:focus, .container input:valid)~label {
     color: var(--color-sixth);
-    transform: translate(-50%, -85%) scale(.9);
-    margin: 0em;
-    padding: 0.4em;
+    transform: translate(-50%, -120%) scale(.9);
 }
-.container input:is(.container input:focus, .container input:valid) {
+.container > input:is(.container input:focus, .container input:valid) {
     transition: all 0.3s ease;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
