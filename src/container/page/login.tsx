@@ -26,8 +26,13 @@ export const Login = () => {
     }
     const submit = (event: KeyboardEvent<HTMLInputElement>) => {
         if(event.key === 'Enter') {
+            playSound()
             loginUser()
         }
+    }
+    const playSound = () => {
+        let audio = new Audio("/assets/sound/click_sound.mp3")
+        audio.play()
     }
     return (
         <div className='wrapper' onKeyDown={submit}>
