@@ -19,7 +19,7 @@ export const Login = () => {
         setUserAuth({ ...userAuth, [event.target.name]: value })
     }
     const loginUser = async () => {
-        await login('user/login', userAuth).then((data) => {
+        await login('auth/login', userAuth).then((data) => {
             // startTransition(() => validItem(data))
             console.log(data)
         }).catch((error) => { /*setError(error)*/ })
