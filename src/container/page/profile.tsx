@@ -4,16 +4,16 @@ import { ErrorMessage } from '../../assets/error/errorMessage'
 import { initialErrorMessage } from '../../assets/error/errorMessage.initial'
 import { changePassword, retrieve } from '../../service/service.crud'
 // import { Button } from '../template/button/button'
-import { logout } from '../../service/service.crud'
+// import { logout } from '../../service/service.crud'
 import { getPayload } from '../../service/service.token'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 // import { Header } from './header'
 
 export const Profile = () => {
     const [state, setState] = useState<User>(initialUser)
     const [error, setError] = useState<ErrorMessage[]>([initialErrorMessage])
     const [ispending, startTransition] = useTransition()
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     useEffect(() => {
         {ispending}
@@ -28,10 +28,10 @@ export const Profile = () => {
     const refresh = () => {
         window.location.reload()
     }
-    const resetItem = () => {
-        setState(initialUser)
-        setError([initialErrorMessage])
-    }
+    // const resetItem = () => {
+    //     setState(initialUser)
+    //     setError([initialErrorMessage])
+    // }
     const validItem = (data: any) => {
         if (data?.accessToken) {
             setState(data)
@@ -44,11 +44,11 @@ export const Profile = () => {
     const networkError = () => {
         setError([{ field: 'DTO', message: 'Network Error' }])
     }
-    const logoutUser = async () => {
-        navigate('/login')
-        logout()
-        resetItem()
-    }
+    // const logoutUser = async () => {
+    //     navigate('/login')
+    //     logout()
+    //     resetItem()
+    // }
     const validation = (name: string): string[] => {
         let vector: string[] = []
         error?.map((element: any) => { if (name == element.field) return vector.push(element?.message) })
