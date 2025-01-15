@@ -1,9 +1,9 @@
-import { Login } from './container/page/login'
+import { AppRoutes } from './Routes'
 
 function App() {
   return (
     <>
-      <Login></Login>
+      <AppRoutes></AppRoutes>
     </>
   )
 }
