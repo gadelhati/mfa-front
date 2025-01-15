@@ -22,7 +22,7 @@ export const Login = () => {
         await login('auth/login', userAuth).then((data) => {
             // startTransition(() => validItem(data))
             console.log(data)
-        }).catch((error) => { /*setError(error)*/ })
+        }).catch((/*error*/) => { /*setError(error)*/ })
     }
     const submit = (event: KeyboardEvent<HTMLInputElement>) => {
         if(event.key === 'Enter') {
@@ -52,13 +52,13 @@ export const Login = () => {
                     </footer>
                     <button onClick={loginUser}>button</button>
                 </div>
-                {/* <div className='card back'>
+                <div className='card back'>
                     <h2 className='sign'>Signup</h2>
                     <button onClick={()=>setMode(true)} disabled={mode}>Sign</button>
                     <GInput onChange={handleInputChange} name='username'></GInput>
                     <GInput onChange={handleInputChange} type="password" name='password'></GInput>
                     <GInput onChange={handleInputChange} name='email'></GInput>
-                </div> */}
+                </div>
             </div>
         </div>
     )
