@@ -12,16 +12,18 @@ import { getPayload } from '../../service/service.token'
 export const Profile = () => {
     const [state, setState] = useState<User>(initialUser)
     const [error, setError] = useState<ErrorMessage[]>([initialErrorMessage])
-    const [ispending, startTransition] = useTransition()
+    // const [ispending, startTransition] = useTransition()
     // const navigate = useNavigate();
 
     useEffect(() => {
-        {ispending}
+        // {ispending}
         retrieveItem()
     }, [])
     const retrieveItem = async () => {
         await retrieve('userEntity', 0, 20, 'username', getPayload().sub).then((data: any) => {
-            startTransition(() => setState(data?.content[0]))
+            // startTransition(() => 
+            setState(data?.content[0])
+            // )
         }).catch(() => { networkError() })
         setState({ ...state, password: '' })
     }
@@ -38,7 +40,7 @@ export const Profile = () => {
             setError([initialErrorMessage])
             refresh()
         } else {
-            startTransition(() => setError(data))
+            // startTransition(() => setError(data))
         }
     }
     const networkError = () => {
@@ -60,7 +62,9 @@ export const Profile = () => {
     }
     const changePasswordItem = async () => {
         await changePassword(state).then((data) => {
-            startTransition(() => validItem(data))
+            // startTransition(() => 
+                validItem(data)
+        // )
         }).catch(() => { networkError() })
     }
     return (
