@@ -45,7 +45,7 @@ export const Login = () => {
                     <GInput onChange={handleInputChangeAuth} name='totpKey'></GInput>
                     <footer>
                         <div>
-                            <input type="checkbox" id="remember" name="remember" checked={remember} onClick={()=>setRemember(!remember)} />
+                            <input type="checkbox" id="remember" name="remember" checked={remember} onChange={()=>setRemember(!remember)} />
                             <label htmlFor="remember">Remember me</label>
                         </div>
                         <a href='#'><label>forgot password</label></a>
