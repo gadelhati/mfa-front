@@ -24,9 +24,6 @@
     pointer-events: none;
     transition: all 0.3s ease;
 }
-.container > input:focus ~ div {
-    transform: 'scaleX(1)';
-}
 .container > input:is(.container input:focus, .container input:valid)~label {
     color: var(--color-sixth);
     transform: translate(-50%, -120%) scale(.9);
