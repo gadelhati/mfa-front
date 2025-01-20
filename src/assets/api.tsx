@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getAccessToken } from '../service/service.token'
+import { getToken } from '../service/service.token'
 
 export const api = axios.create({
   baseURL: "http://localhost:3124/mfa/v1",
@@ -9,7 +9,7 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use(async config => {
-  const token = getAccessToken();
+  const token = getToken().accessToken;
   if (token) {
     config.headers!.Authorization = `Bearer ${token}`;
   }
