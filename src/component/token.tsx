@@ -29,3 +29,13 @@ export interface Payload {
     sub: string,//Subject
     aud: string,//Audience
 }
+
+export const initialPayload: Payload = {
+    jti: '',
+    iss: '',
+    iat: '',
+    nbf: '',
+    exp: '',
+    sub: '',
+    aud: '',
+}

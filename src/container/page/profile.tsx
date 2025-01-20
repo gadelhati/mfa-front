@@ -5,7 +5,7 @@ import { initialErrorMessage } from '../../assets/error/errorMessage.initial'
 import { changePassword, retrieve } from '../../service/service.crud'
 // import { Button } from '../template/button/button'
 // import { logout } from '../../service/service.crud'
-import { getPayload } from '../../service/service.token'
+// import { getPayload } from '../../service/service.token'
 // import { useNavigate } from 'react-router-dom'
 // import { Header } from './header'
 
@@ -17,16 +17,16 @@ export const Profile = () => {
 
     useEffect(() => {
         // {ispending}
-        retrieveItem()
+        // retrieveItem()
     }, [])
-    const retrieveItem = async () => {
-        await retrieve('userEntity', 0, 20, 'username', getPayload().sub).then((data: any) => {
-            // startTransition(() => 
-            setState(data?.content[0])
-            // )
-        }).catch(() => { networkError() })
-        setState({ ...state, password: '' })
-    }
+    // const retrieveItem = async () => {
+    //     await retrieve('userEntity', 0, 20, 'username', getPayload().sub).then((data: any) => {
+    //         // startTransition(() => 
+    //         setState(data?.content[0])
+    //         // )
+    //     }).catch(() => { networkError() })
+    //     setState({ ...state, password: '' })
+    // }
     const refresh = () => {
         window.location.reload()
     }

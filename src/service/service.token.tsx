@@ -1,5 +1,14 @@
 import { Auth } from '../component/auth';
-import { Header, Payload } from '../component/token'
+import { Header, initialPayload, Payload } from '../component/token'
+
+const isValidJSON = (json: string) => {
+  try {
+    JSON.parse(json);
+    return true;
+  } catch {
+    return false;
+  }
+}
 
 export const isValidToken = (): boolean => {
   if (getToken() !== null) {
@@ -23,7 +32,8 @@ export const decodeJwt = () => {
 }
 
 export const getToken = (): Auth => {
-  return JSON.parse(`${localStorage.getItem(`token`)}`);
+  let token: string = `${localStorage.getItem(`token`)}`
+  return isValidJSON(token) ? JSON.parse(token) : '';
 }
 
 export const setToken = (token: any): void => {
@@ -41,7 +51,7 @@ export const getHeader = (): Header => {
     var header = decodeURIComponent(window.atob(base64).split('').map((c) => {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
-    return JSON.parse(header);
+    return isValidJSON(header) ? JSON.parse(header) : '';
   } else {
     let error: Header = { alg: '', typ: '' }
     return error
@@ -54,9 +64,9 @@ export const getPayload = (): Payload => {
     var payload = decodeURIComponent(window.atob(base64).split('').map((c) => {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
-    return JSON.parse(payload);
+    return isValidJSON(payload) ? JSON.parse(payload) : '';
   } else {
-    let error: Payload = { jti: '', iss: '', iat: '', nbf: '', exp: '', sub: '', aud: '' }
+    let error: Payload = initialPayload
     return error
   }
 }

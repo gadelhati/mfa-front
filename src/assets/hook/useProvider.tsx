@@ -1,19 +1,16 @@
-import { createContext, useEffect, useState, useContext } from "react";
+import { createContext, useState, useContext } from "react";
 import { getToken, isValidToken } from "../../service/service.token";
 import { Auth, initialAuth } from "../../component/auth";
 
-const AuthContext = createContext<Auth>({} as Auth);
+const AuthContext = createContext<Auth>(getToken() as Auth);
 
 export const useAuth = () => {
     return useContext(AuthContext);
 }
 
 export const AuthProvider = ({ children }: any) => {
-    const [state, setState] = useState<Auth>(initialAuth)
+    const [state, ] = useState<Auth>(isValidToken() ? getToken() : initialAuth)
 
-    useEffect(() => {
-        if (isValidToken()) setState(getToken())
-    }, []);
     return (
         <AuthContext.Provider value={state}>
             {children}
