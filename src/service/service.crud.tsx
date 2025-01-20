@@ -21,15 +21,12 @@ const addError = (error: any):ErrorMessage[] => {
 }
 
 export const login = async(url: string, object: any) => {
-    console.log('veio:', object)
     return await api.post(url, object)
         .then(response => {
-            console.log('1:', response)
             setToken(response.data)
             return response.data
         })
         .catch(error => {
-            console.log('2:', error)
             return addError(error) })
 }
 

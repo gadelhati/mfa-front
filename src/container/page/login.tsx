@@ -21,7 +21,6 @@ export const Login = () => {
     const loginUser = async () => {
         await login('auth/login', userAuth).then((data) => {
             // startTransition(() => validItem(data))
-            console.log(data)
         }).catch((/*error*/) => { /*setError(error)*/ })
     }
     const submit = (event: KeyboardEvent<HTMLInputElement>) => {

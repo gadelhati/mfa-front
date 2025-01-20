@@ -2,7 +2,7 @@ import { createContext, useState, useContext } from "react";
 import { getToken, isValidToken } from "../../service/service.token";
 import { Auth, initialAuth } from "../../component/auth";
 
-const AuthContext = createContext<Auth>(getToken() as Auth);
+const AuthContext = createContext<Auth>(initialAuth as Auth);
 
 export const useAuth = () => {
     return useContext(AuthContext);
