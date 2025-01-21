@@ -1,4 +1,4 @@
-import { api } from "../assets/api"
+import { api } from "../assets/api/api"
 import { ErrorMessage } from "../assets/error/errorMessage"
 import { removeToken, setToken } from "./service.token"
 
