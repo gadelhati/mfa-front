@@ -1,0 +1,32 @@
+.dialog {
+    min-width: 12rem;
+    z-index: 5;
+    opacity: .45;
+    transition: opacity .8s;
+}
+#confirm {
+    height: 10rem;
+}
+.dialog:hover {
+    opacity: 1;
+}
+.dialog[open] {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    animation: open .5s forwards;
+}
+.dialog::backdrop {
+    background-color: black;
+    opacity: .5;
+}
+@keyframes open {
+    0% {    opacity: 0; }
+    100% {  opacity: 1; }
+}
+@keyframes open {
+    0% {    opacity: .45; }
+    100% {  opacity: 1; }
+}

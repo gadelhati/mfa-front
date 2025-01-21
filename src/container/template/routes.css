@@ -1,0 +1,35 @@
+@import '../global.css';
+
+* {
+    box-sizing: border-box;
+    font-family: Montserrat, sans-serif;
+    flex-shrink: 0;
+}
+body {
+    margin: 0;
+}
+h1 {
+    margin: 0;
+}
+.routes {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    overflow: hidden;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-blend-mode: soft-light;
+}
+.all {
+    align-items: stretch;
+    background-color: var(--color-silver-eleven);
+    background-image: url("/src/assets/image/kl_14.jpg");
+}
+.main {
+    flex-basis: 0;
+    flex-grow: 1.5;
+    flex-direction: column;
+}

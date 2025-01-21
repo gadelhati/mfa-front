@@ -5,6 +5,9 @@ import { Profile } from "./container/page/profile";
 import { isValidToken } from "./service/service.token";
 import { NotAllowed } from "./container/page/notAllowed";
 import { RequireAuth } from "./assets/hook/useRequireAuth";
+import { GenericComponent } from "./container/template/GenericComponent";
+import { initialRole } from "./component/role";
+import '../src/container/template/routes.css'
 
 export const ROLES = {
     'USER': '7c12004d-e843-4e00-be40-01845ad75834',
@@ -23,16 +26,20 @@ export const AppRoutes = () => {
                 <Routes>
                     <Route path="*" element={<Login />}></Route>
                     <Route path="/" element={<Login />}></Route>
+                    {/* <div className='routes all'> */}
                     {isValidToken() &&
                         <>
-                            <Route path="/notAllowed" element={<NotAllowed />}></Route>
+                        
+                            <Route path="/profile" element={<Profile />}></Route>
                             {/* <Route path="/profile2" element={<RequireAuth allowedRoles={[ROLES.ADMIN]} element={<Profile2/>} />} /> */}
                             <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN]} />}>
-                                <Route path="/profile" element={<Profile />}></Route>
+                                <Route path="/role" element={<GenericComponent object={initialRole} url={'role'} />}></Route>
                                 <Route path="/notAllowed    " element={<NotAllowed />}></Route>
                             </Route>
+                        
                         </>
                     }
+                    {/* </div> */}
                 </Routes>
             </AuthProvider>
         </BrowserRouter>
