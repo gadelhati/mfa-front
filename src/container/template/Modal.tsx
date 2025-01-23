@@ -12,7 +12,7 @@ export interface ModalData {
 
 interface Data<T> {
     object: T,
-    ref2: ModalData,
+    ref?: ModalData,
     url: string,
 }
 
