@@ -1,9 +1,20 @@
 .container {
     display: flex;
     padding: .8rem;
+    position: relative;
+    height: 2.5rem;
+    width: 15rem;
+    margin: .25rem;
+    margin-top: 1rem;
+}
+.container > input {
+    height: 100%;
 }
 .container > input, button {
-    width: 15rem;
+    width: 100%; 
+    position: absolute; 
+    top: 0; 
+    left: 0;
     text-align: center;
     padding: .9rem;
     outline: none;
@@ -19,14 +30,18 @@
 }
 .container > label {
     position: absolute;
+    top: 50%; 
     left: 50%;
-    transform: translate(-50%, 40%);
+    transform: translate(-50%, -50%);
     pointer-events: none;
     transition: all 0.3s ease;
 }
 .container > input:is(.container input:focus, .container input:valid)~label {
     color: var(--color-sixth);
-    transform: translate(-50%, -120%) scale(.9);
+    font-size: .5rem;
+    transform: translate(-50%, -290%);
+    backface-visibility: hidden;
+    will-change: transform;
 }
 .container > input:is(.container input:focus, .container input:valid) {
     transition: all 0.3s ease;
