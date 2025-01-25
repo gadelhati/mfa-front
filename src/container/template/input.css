@@ -5,7 +5,7 @@
     height: 2.5rem;
     width: 15rem;
     margin: .25rem;
-    margin-top: 1rem;
+    margin-top: 1.15rem;
 }
 .container > input {
     height: 100%;
@@ -38,8 +38,7 @@
 }
 .container > input:is(.container input:focus, .container input:valid)~label {
     color: var(--color-sixth);
-    font-size: .5rem;
-    transform: translate(-50%, -290%);
+    transform: translate(-50%, -220%);
     backface-visibility: hidden;
     will-change: transform;
 }

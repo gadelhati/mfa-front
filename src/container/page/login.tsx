@@ -40,7 +40,7 @@ export const Login = () => {
                     {/* <button onClick={()=>setMode(false)} disabled={!mode}>Signup</button> */}
                     <h3 className='sign'>Signin</h3>
                     <GInput onChange={handleInputChangeAuth} name='username'></GInput>
-                    <GInput onChange={handleInputChangeAuth} type="password" name='password'></GInput>
+                    <GInput onChange={handleInputChangeAuth} type='password' name='password'></GInput>
                     <GInput onChange={handleInputChangeAuth} name='totpKey'></GInput>
                     <footer>
                         <div>
