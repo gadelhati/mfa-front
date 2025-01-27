@@ -1,0 +1,11 @@
+import { ButtonHTMLAttributes } from "react"
+// import '../template/input.css'
+
+export const GButton: React.FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({name, ...props}) => {
+    return (
+        <div className="container">
+            <button {...props} name={name} id={name} ></button>
+            {/* {name && <label htmlFor={name}>{name.charAt(0)+name.slice(1)}</label>} */}
+        </div>
+    )
+}
