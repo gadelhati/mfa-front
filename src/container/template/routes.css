@@ -7,6 +7,11 @@
 body {
     margin: 0;
 }
+.routes {
+    background-image: url("/src/assets/image/particules.jpg ");
+    background-position: center center;
+    background-size: cover;
+}
 h1 {
     margin: 0;
 }

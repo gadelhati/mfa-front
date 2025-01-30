@@ -13,6 +13,9 @@ export const Login = () => {
     const [user, setUser] = useState<User>(initialUser)
     const [userAuth, setUserAuth] = useState<UserAuth>(initialUserAuth)
 
+    const refresh = () => {
+        window.location.reload()
+    }
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
         setUser({ ...user, [event.target.name]: value })
@@ -24,10 +27,12 @@ export const Login = () => {
     const loginUser = async () => {
         await login('auth/login', userAuth).then((data) => {
             // startTransition(() => validItem(data))
+            console.log(data)
+            refresh()
         }).catch((/*error*/) => { /*setError(error)*/ })
     }
     const submit = (event: KeyboardEvent<HTMLInputElement>) => {
-        if(event.key === 'Enter') {
+        if (event.key === 'Enter') {
             playSound()
             loginUser()
         }
@@ -41,32 +46,34 @@ export const Login = () => {
             {isValidToken() ?
                 <Home></Home>
                 :
-            <div className='wrapper' onKeyDown={submit}>
-                <div className={mode?`card content`:`card content change`}>
-                    <div className='card front'>
-                        {/* <button onClick={()=>setMode(false)} disabled={!mode}>Signup</button> */}
-                        <h3 className='sign'>Signin</h3>
-                        <GInput onChange={handleInputChangeAuth} name='username'></GInput>
-                        <GInput onChange={handleInputChangeAuth} type='password' name='password'></GInput>
-                        <GInput onChange={handleInputChangeAuth} name='totpKey'></GInput>
-                        <footer>
-                            <div>
-                                <input type="checkbox" id="remember" name="remember" checked={remember} onChange={()=>setRemember(!remember)} />
-                                <label htmlFor="remember">Remember me</label>
+                <div className='login'>
+                    <div className='wrapper' onKeyDown={submit}>
+                        <div className={mode ? `card content` : `card content change`}>
+                            <div className='card front'>
+                                {/* <button onClick={()=>setMode(false)} disabled={!mode}>Signup</button> */}
+                                <h3 className='sign'>Signin</h3>
+                                <GInput onChange={handleInputChangeAuth} name='username'></GInput>
+                                <GInput onChange={handleInputChangeAuth} type='password' name='password'></GInput>
+                                <GInput onChange={handleInputChangeAuth} name='totpKey'></GInput>
+                                <footer>
+                                    <div>
+                                        <input type="checkbox" id="remember" name="remember" checked={remember} onChange={() => setRemember(!remember)} />
+                                        <label htmlFor="remember">Remember me</label>
+                                    </div>
+                                    <a href='#'><label>forgot password</label></a>
+                                </footer>
+                                <GButton onClick={loginUser}>OK</GButton>
                             </div>
-                            <a href='#'><label>forgot password</label></a>
-                        </footer>
-                        <GButton onClick={loginUser}>OK</GButton>
+                            <div className='card back'>
+                                <h2 className='sign'>Signup</h2>
+                                <button onClick={() => setMode(true)} disabled={mode}>Sign</button>
+                                <GInput onChange={handleInputChange} name='username'></GInput>
+                                <GInput onChange={handleInputChange} type="password" name='password'></GInput>
+                                <GInput onChange={handleInputChange} name='email'></GInput>
+                            </div>
+                        </div>
                     </div>
-                    <div className='card back'>
-                        <h2 className='sign'>Signup</h2>
-                        <button onClick={()=>setMode(true)} disabled={mode}>Sign</button>
-                        <GInput onChange={handleInputChange} name='username'></GInput>
-                        <GInput onChange={handleInputChange} type="password" name='password'></GInput>
-                        <GInput onChange={handleInputChange} name='email'></GInput>
-                    </div>
-                </div>
-            </div>}
+                </div>}
         </>
     )
 }

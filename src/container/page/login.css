@@ -1,14 +1,11 @@
 @import '../global.css';
 
 /* div[class^="card"] { */
-body {
+.login {
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url("/src/assets/image/particules.jpg ");
-    background-position: center center;
-    background-size: cover;
 }
 .sign {
     padding: 2rem;

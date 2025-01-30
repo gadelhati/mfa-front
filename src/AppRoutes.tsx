@@ -23,13 +23,12 @@ export const AppRoutes = () => {
     return (
         <BrowserRouter>
             <AuthProvider>
+                <div className='routes main'>
                 <Routes>
                     <Route path="*" element={<Login />}></Route>
                     <Route path="/" element={<Login />}></Route>
-                    {/* <div className='routes all'> */}
                     {isValidToken() &&
                         <>
-                        
                             <Route path="/profile" element={<Profile />}></Route>
                             {/* <Route path="/profile2" element={<RequireAuth allowedRoles={[ROLES.ADMIN]} element={<Profile2/>} />} /> */}
                             <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN]} />}>
@@ -39,8 +38,8 @@ export const AppRoutes = () => {
                         
                         </>
                     }
-                    {/* </div> */}
                 </Routes>
+                </div>
             </AuthProvider>
         </BrowserRouter>
     )
