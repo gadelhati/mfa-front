@@ -67,8 +67,8 @@ export const Login = () => {
                             <div className='card back'>
                                 <h2 className='sign'>Signup</h2>
                                 <button onClick={() => setMode(true)} disabled={mode}>Sign</button>
-                                <GInput onChange={handleInputChange} name='username'></GInput>
-                                <GInput onChange={handleInputChange} type="password" name='password'></GInput>
+                                <GInput onChange={handleInputChange} name='username' ></GInput>
+                                <GInput onChange={handleInputChange} name='password' type="password"></GInput>
                                 <GInput onChange={handleInputChange} name='email'></GInput>
                             </div>
                         </div>

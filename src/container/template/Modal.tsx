@@ -5,6 +5,8 @@ import { useRequest } from '../../assets/hook/useRequest'
 import { UriToScreenFormat } from '../../assets/uri.format'
 import './modal.css'
 import './modal2.css'
+import { GInput } from './input'
+import { GButton } from './button'
 
 export interface ModalData {
     showModal: () => void
@@ -84,10 +86,10 @@ const Modal = <T extends Object>(data: Data<T>, ref: Ref<ModalData>) => {
                     })}
                 </center>
                 <footer>
-                    <button onClick={() => crud('create')}>Create</button>
-                    <button onClick={() => crud('update')}>Update</button>
+                    <GButton onClick={() => crud('create')}>Create</GButton>
+                    <GButton onClick={() => crud('update')}>Update</GButton>
                     {/* <button onClick={() => crud('delete')}>Delete</button> */}
-                    <button onClick={closeModal}>Close</button>
+                    <GButton onClick={closeModal}>Close</GButton>
                 </footer>
             </dialog>
             <dialog id='confirm' className='dialog'>
@@ -96,8 +98,8 @@ const Modal = <T extends Object>(data: Data<T>, ref: Ref<ModalData>) => {
                     <span onClick={closeModal}>&times;</span>
                 </header>
                 <footer>
-                    <button onClick={confirmCrud}>Confirmar</button>
-                    <button onClick={closeModal}>Close</button>
+                    <GButton onClick={confirmCrud}>Confirmar</GButton>
+                    <GButton onClick={closeModal}>Close</GButton>
                 </footer>
             </dialog>
         </>

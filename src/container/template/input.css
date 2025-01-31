@@ -1,4 +1,4 @@
-.container {
+.ginput {
     display: flex;
     padding: .8rem;
     position: relative;
@@ -7,10 +7,10 @@
     margin: .25rem;
     margin-top: 1.15rem;
 }
-.container > input {
+.ginput > input {
     height: 100%;
 }
-.container > input, button {
+.ginput > input, button {
     width: 100%; 
     position: absolute; 
     top: 0; 
@@ -22,13 +22,13 @@
     border-radius: .3rem;
     background-color: var(--color-sixth);
 }
-.container > input:is(.container input[data-tip='1']) {
+.ginput > input:is(.ginput input[data-tip='1']) {
     background-color: #D56062;
 }
-.container > input:is(.container input[data-tip='1'])~label {
+.ginput > input:is(.ginput input[data-tip='1'])~label {
     color: white;
 }
-.container > label {
+.ginput > label {
     position: absolute;
     top: 50%; 
     left: 50%;
@@ -36,13 +36,13 @@
     pointer-events: none;
     transition: all 0.3s ease;
 }
-.container > input:is(.container input:focus, .container input:valid)~label {
+.ginput > input:is(.ginput input:focus, .ginput input:valid)~label {
     color: var(--color-sixth);
     transform: translate(-50%, -220%);
     backface-visibility: hidden;
     will-change: transform;
 }
-.container > input:is(.container input:focus, .container input:valid) {
+.ginput > input:is(.ginput input:focus, .ginput input:valid) {
     transition: all 0.3s ease;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
