@@ -3,6 +3,7 @@ import { Search } from "../../component/search"
 import { Page } from "../../component/page"
 import Modal, { ModalData } from "./Modal"
 // import { Pageable } from "../component/pageable"
+import './table.css'
 
 interface Data<T extends Object> {
     object: T,

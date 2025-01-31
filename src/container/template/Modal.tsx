@@ -4,6 +4,7 @@ import { create, update } from '../../service/service.crud'
 import { useRequest } from '../../assets/hook/useRequest'
 import { UriToScreenFormat } from '../../assets/uri.format'
 import './modal.css'
+import './modal2.css'
 
 export interface ModalData {
     showModal: () => void

@@ -1,5 +1,5 @@
 import { InputHTMLAttributes } from "react"
-import '../template/input.css'
+// import '../template/input.css'
 
 export const GInput: React.FC<InputHTMLAttributes<HTMLInputElement>> = ({name, ...props}) => {
     return (
