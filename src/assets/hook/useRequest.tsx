@@ -17,7 +17,7 @@ export const useRequest = <T extends Object>(url: string, value?: string, page?:
         return (() => {
             controller.abort()
         })
-    }, [url, value, page, size, sort])
+    }, [])
     const retrieve = useCallback( async (uri: string, signal?: AbortSignal) => {
         await api.get<{ content: T[]; page: Page }>(`/${uri}${value ? `?value=${value}` : ""}`,
             {
