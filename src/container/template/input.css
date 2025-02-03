@@ -22,10 +22,10 @@
     border-radius: .3rem;
     background-color: var(--color-sixth);
 }
-.ginput > input:is(.ginput input[data-tip='1']) {
+.ginput > input[data-tip='1'] {
     background-color: #D56062;
 }
-.ginput > input:is(.ginput input[data-tip='1'])~label {
+.ginput > input:is(.ginput input[data-tip='1']) ~ label {
     color: white;
 }
 .ginput > label {
@@ -36,13 +36,15 @@
     pointer-events: none;
     transition: all 0.3s ease;
 }
-.ginput > input:is(.ginput input:focus, .ginput input:valid)~label {
+.ginput > input:focus ~ label,
+.ginput > input:valid ~ label {
     color: var(--color-sixth);
     transform: translate(-50%, -220%);
     backface-visibility: hidden;
     will-change: transform;
 }
-.ginput > input:is(.ginput input:focus, .ginput input:valid) {
+.ginput > input:focus,
+.ginput > input:valid {
     transition: all 0.3s ease;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }

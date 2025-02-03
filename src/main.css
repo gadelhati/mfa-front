@@ -4,3 +4,6 @@
     box-sizing: border-box;
     font-family: Tahoma, Verdana, sans-serif;
 } */
+ * {
+    font-family: Sans-serif;
+ }

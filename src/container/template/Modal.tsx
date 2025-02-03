@@ -1,11 +1,10 @@
-import { forwardRef, Ref, useEffect, useImperativeHandle, useState } from 'react'
+import { forwardRef, Ref, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { useInput } from '../../assets/hook/useInput'
 import { create, update } from '../../service/service.crud'
 import { useRequest } from '../../assets/hook/useRequest'
 import { UriToScreenFormat } from '../../assets/uri.format'
 import './modal.css'
 import './modal2.css'
-import { GInput } from './input'
 import { GButton } from './button'
 
 export interface ModalData {
@@ -15,32 +14,33 @@ export interface ModalData {
 
 interface Data<T> {
     object: T,
-    ref?: ModalData,
     url: string,
 }
 
 const Modal = <T extends Object>(data: Data<T>, ref: Ref<ModalData>) => {
     const { state, setState, handleInput, handleSelect, handleMultiSelect } = useInput<T>(data.object)
-    const { states, retrieve } = useRequest<T>('url')
+    const { states, retrieve } = useRequest<T>(data.url)
     const [action, setAction] = useState<string>('retrieve')
     // const { states, pageable, retrieve } = useRequest<T>(object.url, search.value, search.page, search.size, { key: search.key, order: search.order })
+    const modalRef = useRef<HTMLDialogElement>(null);
+    const confirmRef = useRef<HTMLDialogElement>(null);
 
     useEffect(() => {
-        setState(data.object)
+        if (JSON.stringify(data.object) !== JSON.stringify(state)) {
+            setState(data.object);
+        }
     }, [data.object])
 
-    const showModal = () => {
-        (document.querySelector(`#selected`) as HTMLDialogElement).showModal()
-    }
-    const showConfirm = () => {
-        (document.querySelector(`#confirm`) as HTMLDialogElement).showModal()
-    }
-    const closeModal = () => {
-        const elements = Array.from(document.querySelectorAll(`#selected, #confirm`))
-        elements.forEach((element: any)=> {
-            element.close()
-        })
-    }
+    const showModal = useCallback(() => {
+        modalRef.current?.showModal()
+    }, [])
+    const showConfirm = useCallback(() => {
+        confirmRef.current?.showModal()
+    }, [])
+    const closeModal = useCallback(() => {
+        modalRef.current?.close();
+        confirmRef.current?.close()
+    }, [])
     useImperativeHandle(ref, () => ({
         showModal, closeModal
     }))
@@ -57,33 +57,41 @@ const Modal = <T extends Object>(data: Data<T>, ref: Ref<ModalData>) => {
             default: closeModal();
         }
     }
-    const fill = (uri: string) => {
-        retrieve(uri)
+    const renderInput = ([key, value]: [string, any]) => {
+        return <span key={key} className={'inputgroup tooltip'} data-tip={[]} style={{ display: 'flex' }}>
+            {typeof value === 'object' ?
+                <select name={key} onClick={() => retrieve(key)} onChange={Array.isArray(value) ? handleMultiSelect : handleSelect}
+                    defaultValue={Array.isArray(value) ? value[0]?.name || value[0]?.id : value?.name || value?.id}
+                // defaultValue={Array.isArray(value) ? value[0]?.id ?? '' : value?.id ?? ''}
+                // defaultValue={value === undefined || value === null ? null : Array.isArray(value) && value[0] !== undefined ? (value[0].hasOwnProperty('name') ? value[0]?.name : value[0]?.id) : value.name !== undefined ? value?.name : value?.id}
+                >
+                    <option selected value={value === undefined || value === null ? null : Array.isArray(value) ? value[0] : value}>
+                        {/* {value === undefined || value === null ? null : Array.isArray(value) && value[0] !== undefined ? (value[0].hasOwnProperty('name') ? value[0]?.name : value[0]?.id) : value.name !== undefined ? value?.name : value?.id} */}
+                        {value === undefined || value === null ? (
+                            <option value="">Selecione...</option>
+                        ) : (
+                            <option value={Array.isArray(value) ? value[0]?.id : value?.id}>
+                                {Array.isArray(value) ? value[0]?.name || value[0]?.id : value?.name || value?.id}
+                            </option>
+                        )}
+                    </option>
+                    {states?.map(((result: any) => <option key={result.id} value={result.id}>{result?.name ? result.name : result.id}</option>))}
+                </select>
+                :
+                <input type={typeof value} name={key} value={Array.isArray(value) ? [value] : value} onChange={handleInput} placeholder={key} ></input>
+            }
+            <label htmlFor={key}>{key}</label>
+        </span>
     }
     return (
         <>
-            <dialog id='selected' className="dialog">
+            <dialog id='selected' className="dialog" ref={modalRef}>
                 <header>
                     <h2>{UriToScreenFormat(data.url)}</h2>
                     <span onClick={closeModal}>&times;</span>
                 </header>
                 <center>
-                    {data.object !== undefined && Object.entries(state).map(([key, value]: [string, any]) => {
-                        return <span key={key + 'span'} className={'inputgroup tooltip'} data-tip={[]} style={{ display: 'flex' }}>
-                            {typeof value === 'object' ?
-                                <select key={key} name={key} onClick={() => fill(key)} onChange={Array.isArray(value) ? handleMultiSelect : handleSelect}
-                                    defaultValue={value === undefined || value === null ? null : Array.isArray(value) && value[0] !== undefined ? (value[0].hasOwnProperty('name') ? value[0]?.name : value[0]?.id) : value.name !== undefined ? value?.name : value?.id}>
-                                    <option selected value={value === undefined || value === null ? null : Array.isArray(value) ? value[0] : value}>
-                                        {value === undefined || value === null ? null : Array.isArray(value) && value[0] !== undefined ? (value[0].hasOwnProperty('name') ? value[0]?.name : value[0]?.id) : value.name !== undefined ? value?.name : value?.id}
-                                    </option>
-                                    {states?.map(((result: any) => <option key={Math.random()} value={result.id}>{result?.name ? result.name : result.id}</option>))}
-                                </select>
-                                :
-                                <input key={key} type={typeof value} name={key} value={Array.isArray(value) ? [value] : value} onChange={handleInput} placeholder={key} ></input>
-                            }
-                            <label htmlFor={key}>{key}</label>
-                        </span>
-                    })}
+                    {Object.entries(state).map(renderInput)}
                 </center>
                 <footer>
                     <GButton onClick={() => crud('create')}>Create</GButton>
@@ -92,7 +100,7 @@ const Modal = <T extends Object>(data: Data<T>, ref: Ref<ModalData>) => {
                     <GButton onClick={closeModal}>Close</GButton>
                 </footer>
             </dialog>
-            <dialog id='confirm' className='dialog'>
+            <dialog id='confirm' className='dialog' ref={confirmRef}>
                 <header>
                     <h2>{UriToScreenFormat(action)}</h2>
                     <span onClick={closeModal}>&times;</span>

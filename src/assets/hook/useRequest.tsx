@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { api } from "../api/api"
 import { initialPage, Page } from "../../component/page"
+import { ErrorMessage } from "../error/errorMessage"
+import { initialErrorMessage } from "../error/errorMessage.initial"
 // import { initialPageable, Pageable } from "../../component/pageable"
 
 export const useRequest = <T extends Object>(url: string, value?: string, page?: number, size?: number, sort?: { key?: string, order?: string }) => {
     const [states, setStates] = useState<T[]>([])
     // const [pageable, setPageable] = useState<Pageable>(initialPageable)
     const [pageable, setPageable] = useState<Page>(initialPage)
+    const [error, setError] = useState<ErrorMessage[]>([initialErrorMessage])
     const controller = new AbortController();
 
     useEffect(() => {
@@ -15,13 +18,25 @@ export const useRequest = <T extends Object>(url: string, value?: string, page?:
             controller.abort()
         })
     }, [])
-    const retrieve = async (uri: string) => {
-        await api.get<T>(value === undefined ? `/${uri}` : `/${uri}?value=${value}`,
-            { params: { page: page, size: size, sort: sort === undefined ? undefined : `${sort?.key},${sort.order}` } }
+    const retrieve = useCallback( async (uri: string, signal?: AbortSignal) => {
+        await api.get<{ content: T[]; page: Page }>(`/${uri}${value ? `?value=${value}` : ""}`,
+            {
+                params: {
+                    page,
+                    size,
+                    sort: sort ? `${sort.key},${sort.order}` : undefined,
+                },
+                signal,
+            }
         ).then((response: any) => {
             setStates(response.data.content)
             setPageable(response.data.page)
-        })
-    }
-    return { states, pageable, retrieve }
+        }).catch((error) => {
+            if (!signal?.aborted) {
+                setError([{message: error}])
+            }
+            throw error;
+        });
+    }, [value, page, size, sort])
+    return { states, pageable, error, retrieve }
 }
