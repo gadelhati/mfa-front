@@ -13,7 +13,7 @@ export const useRequest = <T extends Object>(url: string, value?: string, page?:
 
     useEffect(() => {
         const controller = new AbortController();
-        retrieve(url, controller.signal);
+        retrieve(url, controller.signal).catch(()=>{});
         return (() => {
             controller.abort()
         })
@@ -33,10 +33,10 @@ export const useRequest = <T extends Object>(url: string, value?: string, page?:
             setPageable(response.data.page)
         }).catch((error) => {
             if (!signal?.aborted) {
-                setError([{message: error}])
+                setError([{ message: error?.message || "Erro desconhecido" }])
             }
             throw error;
         });
-    }, [value, page, size, sort])
+    }, [url, value, page, size, sort])
     return { states, pageable, error, retrieve }
 }
