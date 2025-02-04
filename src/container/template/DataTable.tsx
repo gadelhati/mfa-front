@@ -4,6 +4,7 @@ import { Page } from "../../component/page"
 import Modal, { ModalData } from "./Modal"
 // import { Pageable } from "../component/pageable"
 import './table.css'
+import { GButton } from "./button"
 
 interface Data<T extends Object> {
     object: T,
@@ -56,7 +57,7 @@ export const DataTable = <T extends Object>(data: Data<T>) => {
     }
     return (
         <>
-        <button onClick={newItem}>New</button>
+        <GButton onClick={newItem}>New</GButton>
         <Modal object={state} ref={modalRef} url={data.url} />
         <table>
             <thead>
