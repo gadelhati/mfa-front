@@ -13,6 +13,7 @@ interface Data<T extends Object> {
     // pageable: Pageable,
     pageable: Page,
     url: string,
+    function2?: any,
 }
 
 export const DataTable = <T extends Object>(data: Data<T>) => {
@@ -58,6 +59,8 @@ export const DataTable = <T extends Object>(data: Data<T>) => {
     return (
         <>
         <GButton onClick={newItem}>New</GButton>
+        <GButton onClick={data.function2}>123</GButton>
+        <input name={'value'} onChange={data.function2}></input>
         <Modal object={state} ref={modalRef} url={data.url} />
         <table>
             <thead>

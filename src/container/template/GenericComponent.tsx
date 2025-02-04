@@ -45,7 +45,7 @@ export const GenericComponent = <T extends Object>(object: Data<T>) => {
                 </span>
             })}
             {/* {error && <div className="error-message">{JSON.stringify(error[0].message)}</div>} */}
-            <DataTable object={object.object} list={states} pageable={pageable} search={search} url={object.url} />
+            <DataTable object={object.object} list={states} pageable={pageable} search={search} url={object.url} function2={handleSearch} />
         </>
     )
 }
