@@ -16,7 +16,7 @@ export const GenericComponent = <T extends Object>(object: Data<T>) => {
     // const [isInterface] = useIsInterface<T, User>(initialRole, initialUser)
     const { state: search, handleInput: handleSearch } = useInput<Search>(intialSearch)
     const { states, pageable, retrieve } = useRequest<T>(object.url, search.value, search.page, search.size, { key: search.key, order: search.order })
-    const [error, setError] = useState<ErrorMessage[]>([initialErrorMessage])
+    const [ , setError ] = useState<ErrorMessage[]>([initialErrorMessage])
 
     useEffect(() => {
         const controller = new AbortController();
