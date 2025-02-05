@@ -4,6 +4,13 @@ import { api } from "../api/api";
 export const useInput = <T extends Object>(data: T) => {
     const [state, setState] = useState<T>(data)
     
+    const handleElement = (event: ChangeEvent<HTMLDivElement>) => {
+        const name = event.target.dataset.name
+        const value = event.target.dataset.value
+        if (name && value) {
+            setState({ ...state, [name]: value })
+        }
+    }
     const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value
         // if (new RegExp(event.target.pattern).test(event.target.value) || event.target.value === '') { 
@@ -22,5 +29,5 @@ export const useInput = <T extends Object>(data: T) => {
             setState({ ...state, [event.target.name]: [response.data.content[0]] })
         })
     }
-    return { state, setState, handleInput, handleSelect, handleMultiSelect }
+    return { state, setState, handleInput, handleSelect, handleMultiSelect, handleElement }
 }

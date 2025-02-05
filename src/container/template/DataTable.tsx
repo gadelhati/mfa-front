@@ -5,6 +5,7 @@ import Modal, { ModalData } from "./Modal"
 // import { Pageable } from "../component/pageable"
 import './table.css'
 import { GButton } from "./button"
+import { GInput } from "./input"
 
 interface Data<T extends Object> {
     object: T,
@@ -13,7 +14,8 @@ interface Data<T extends Object> {
     // pageable: Pageable,
     pageable: Page,
     url: string,
-    function2?: any,
+    function?: any,
+    another?: any
 }
 
 export const DataTable = <T extends Object>(data: Data<T>) => {
@@ -59,16 +61,25 @@ export const DataTable = <T extends Object>(data: Data<T>) => {
     return (
         <>
         <GButton onClick={newItem}>New</GButton>
-        <GButton onClick={data.function2}>123</GButton>
-        <input name={'value'} onChange={data.function2}></input>
+        {/* <GInput name={'key'} onChange={data.function} value={data.search.key}></GInput> */}
+        <GInput name={'value'} onChange={data.function} value={data.search.value}></GInput>
+        <select name={'order'} onChange={data.function} value={data.search.order}>
+            <option value={'ASC'}>ASC</option>
+            <option value={'DESC'}>DESC</option>
+        </select>
         <Modal object={state} ref={modalRef} url={data.url} />
         <table>
             <thead>
+                {/* <tr>
+                <GInput name={'page'} onChange={data.function}></GInput>
+                <GInput name={'value'} onChange={data.function}></GInput>
+                </tr> */}
                 <tr key={Math.random()} >
                     {data.list[0] !== undefined &&
                         Object.keys(data.list[0]).map((column: string) => {
-                            return <th key={Math.random()} >{column}</th>
-                        })}
+                            return <th key={column} data-name={'key'} data-value={column} onClick={data.another}>{column}{column === data.search.key ? (data.search.order === 'ASC' ? '↑' : '↓') : ''}</th>
+                        })
+                    }
                 </tr>
             </thead>
             <tbody>

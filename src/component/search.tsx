@@ -1,7 +1,7 @@
 export interface Search {
     key: string,
     value: string,
-    order: string,
+    order: 'ASC' | 'DESC',
     page: number,
     size: number,
 }

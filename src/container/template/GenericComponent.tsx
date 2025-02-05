@@ -14,7 +14,7 @@ interface Data<T extends Object> {
 
 export const GenericComponent = <T extends Object>(object: Data<T>) => {
     // const [isInterface] = useIsInterface<T, User>(initialRole, initialUser)
-    const { state: search, handleInput: handleSearch } = useInput<Search>(intialSearch)
+    const { state: search, handleInput: handleSearch, handleElement } = useInput<Search>(intialSearch)
     const { states, pageable, retrieve } = useRequest<T>(object.url, search.value, search.page, search.size, { key: search.key, order: search.order })
     const [ , setError ] = useState<ErrorMessage[]>([initialErrorMessage])
 
@@ -45,7 +45,7 @@ export const GenericComponent = <T extends Object>(object: Data<T>) => {
                 </span>
             })}
             {/* {error && <div className="error-message">{JSON.stringify(error[0].message)}</div>} */}
-            <DataTable object={object.object} list={states} pageable={pageable} search={search} url={object.url} function2={handleSearch} />
+            <DataTable object={object.object} list={states} pageable={pageable} search={search} url={object.url} function={handleSearch} another={handleElement} />
         </>
     )
 }
