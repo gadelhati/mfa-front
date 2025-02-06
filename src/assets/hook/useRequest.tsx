@@ -1,14 +1,15 @@
 import { useCallback, useEffect, useState } from "react"
 import { api } from "../api/api"
-import { initialPage, Page } from "../../component/page"
+// import { initialPage, Page } from "../../component/page"
 import { ErrorMessage } from "../error/errorMessage"
 import { initialErrorMessage } from "../error/errorMessage.initial"
+import { initialPageable, Pageable } from "../../component/pageable"
 // import { initialPageable, Pageable } from "../../component/pageable"
 
 export const useRequest = <T extends Object>(url: string, value?: string, page?: number, size?: number, sort?: { key?: string, order?: string }) => {
     const [states, setStates] = useState<T[]>([])
     // const [pageable, setPageable] = useState<Pageable>(initialPageable)
-    const [pageable, setPageable] = useState<Page>(initialPage)
+    const [pageable, setPageable] = useState<Pageable>(initialPageable)
     const [error, setError] = useState<ErrorMessage[]>([initialErrorMessage])
 
     useEffect(() => {
@@ -19,7 +20,7 @@ export const useRequest = <T extends Object>(url: string, value?: string, page?:
         })
     }, [])
     const retrieve = useCallback( async (uri: string, signal?: AbortSignal) => {
-        await api.get<{ content: T[]; page: Page }>(`/${uri}${value ? `?value=${value}` : ""}`,
+        await api.get<{ content: T[]; page: Pageable }>(`/${uri}${value ? `?value=${value}` : ""}`,
             {
                 params: {
                     page,
