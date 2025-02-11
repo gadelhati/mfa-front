@@ -10,11 +10,11 @@ export interface User {
 }
 export interface UserValidation {
 	readonly id: string,
-	username: string,
-	email: string,
-    password: string,
-	active: string,
-	role: string,
+	readonly username: string,
+	readonly email: string,
+    readonly password: string,
+	readonly active: string,
+	readonly role: string,
 }
 export const initialUserValidation: UserValidation = {
 	id: `^[a-zA-Z0-9]+$`,
@@ -22,7 +22,7 @@ export const initialUserValidation: UserValidation = {
 	email: `^[a-zA-Z0-9]+$`,
 	password: `^[a-zA-Z0-9]+$`,
 	active: `^[a-zA-Z0-9]+$`,
-	role: `^[a-zA-Z0-9]+$`
+	role: `^[a-zA-Z0-9]+$`,
 }
 export const initialUser: User = {
 	id: '',
@@ -39,9 +39,14 @@ export interface UserAuth {
 	totpKey: string,
 }
 export interface UserAuthValidation {
-	username: string,
-    password: string,
-	totpKey: string,
+	readonly username: string,
+    readonly password: string,
+	readonly totpKey: string,
+}
+export const initialUserAuthValidation: UserAuthValidation = {
+	username: `^[a-zA-Z0-9]+$`,
+	password: `^[a-zA-Z0-9]+$`,
+	totpKey: `^[a-zA-Z0-9]+$`,
 }
 export const initialUserAuth: UserAuth = {
 	username: '',

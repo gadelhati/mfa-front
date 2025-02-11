@@ -4,7 +4,7 @@ export interface Role {
 }
 export interface RoleValidation {
     readonly id: string,
-    name: string,
+    readonly name: string,
 }
 export const initialRoleValidation: RoleValidation = {
     id: `^[a-zA-Z0-9]+$`,
