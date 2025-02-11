@@ -2,8 +2,7 @@ import axios from 'axios'
 import { getToken } from '../../service/service.token'
 
 export const api = axios.create({
-  baseURL: "http://localhost:3124/mfa/v1",
-  // baseURL: "https://fast2-8edb.onrender.com",
+  baseURL: import.meta.env.VITE_API_BASE,
   headers: { 'content-type': 'application/json' }
 });
 
