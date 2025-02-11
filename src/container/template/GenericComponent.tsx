@@ -7,12 +7,13 @@ import { ErrorMessage } from "../../assets/error/errorMessage";
 import { initialErrorMessage } from "../../assets/error/errorMessage.initial";
 import '../template/inputgroup.css'
 
-interface Data<T extends Object> {
+interface Data<T extends Object, S extends Object> {
     object: T,
+    validation: S,
     url: string,
 }
 
-export const GenericComponent = <T extends Object>(object: Data<T>) => {
+export const GenericComponent = <T extends Object, S extends Object>(object: Data<T, S>) => {
     // const [isInterface] = useIsInterface<T, User>(initialRole, initialUser)
     const { state: search, handleInput: handleSearch, handleElement } = useInput<Search>(intialSearch)
     const { states, pageable, retrieve } = useRequest<T>(object.url, search.value, search.page, search.size, { key: search.key, order: search.order })
@@ -39,7 +40,7 @@ export const GenericComponent = <T extends Object>(object: Data<T>) => {
                 </span>
             })} */}
             {/* {error && <div className="error-message">{JSON.stringify(error[0].message)}</div>} */}
-            <DataTable object={object.object} list={states} pageable={pageable} search={search} url={object.url} function={handleSearch} another={handleElement} />
+            <DataTable object={object.object} validation={object.validation} list={states} pageable={pageable} search={search} url={object.url} function={handleSearch} another={handleElement} />
         </>
     )
 }

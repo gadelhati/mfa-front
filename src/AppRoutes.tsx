@@ -6,7 +6,7 @@ import { isValidToken } from "./service/service.token";
 import { NotAllowed } from "./container/page/notAllowed";
 import { RequireAuth } from "./assets/hook/useRequireAuth";
 import { GenericComponent } from "./container/template/GenericComponent";
-import { initialRole } from "./component/role";
+import { initialRole, initialRoleValidation } from "./component/role";
 import '../src/container/template/routes.css'
 
 export const ROLES = {
@@ -32,7 +32,7 @@ export const AppRoutes = () => {
                             <Route path="/profile" element={<Profile />}></Route>
                             {/* <Route path="/profile2" element={<RequireAuth allowedRoles={[ROLES.ADMIN]} element={<Profile2/>} />} /> */}
                             <Route element={<RequireAuth allowedRoles={[ROLES.ADMIN]} />}>
-                                <Route path="/role" element={<GenericComponent object={initialRole} url={'role'} />}></Route>
+                                <Route path="/role" element={<GenericComponent object={initialRole} validation={initialRoleValidation} url={'role'} />}></Route>
                                 <Route path="/notAllowed    " element={<NotAllowed />}></Route>
                             </Route>
                         

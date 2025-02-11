@@ -3,21 +3,22 @@ import { useInput } from '../../assets/hook/useInput'
 import { create, update } from '../../service/service.crud'
 import { useRequest } from '../../assets/hook/useRequest'
 import { UriToScreenFormat } from '../../assets/uri.format'
+import { GButton } from './button'
 import './modal.css'
 import './modal2.css'
-import { GButton } from './button'
 
 export interface ModalData {
     showModal: () => void
     closeModal: () => void
 }
 
-interface Data<T> {
+interface Data<T, S> {
     object: T,
+    validation: S,
     url: string,
 }
 
-const Modal = <T extends Object>(data: Data<T>, ref: Ref<ModalData>) => {
+const Modal = <T extends Object, S extends Object>(data: Data<T, S>, ref: Ref<ModalData>) => {
     const { state, setState, handleInput, handleSelect, handleMultiSelect } = useInput<T>(data.object)
     const { states, retrieve } = useRequest<T>(data.url)
     const [action, setAction] = useState<string>('retrieve')
@@ -57,7 +58,7 @@ const Modal = <T extends Object>(data: Data<T>, ref: Ref<ModalData>) => {
             default: closeModal();
         }
     }
-    const renderInput = ([key, value]: [string, any]) => {
+    const renderInput = ([key, value]: [string, any], index: number) => {
         return <span key={key} className={'inputgroup tooltip'} data-tip={[]} style={{ display: 'flex' }}>
             {typeof value === 'object' ?
                 <select name={key} onClick={() => retrieve(key)} onChange={Array.isArray(value) ? handleMultiSelect : handleSelect}
@@ -78,7 +79,7 @@ const Modal = <T extends Object>(data: Data<T>, ref: Ref<ModalData>) => {
                     {states?.map(((result: any) => <option key={result.id} value={result.id}>{result?.name ? result.name : result.id}</option>))}
                 </select>
                 :
-                <input type={typeof value} name={key} value={Array.isArray(value) ? [value] : value} onChange={handleInput} placeholder={key} ></input>
+                <input type={typeof value} name={key} value={Array.isArray(value) ? [value] : value} onChange={handleInput} placeholder={key} pattern={Object.values(data.validation)[index]} ></input>
             }
             <label htmlFor={key}>{key}</label>
         </span>

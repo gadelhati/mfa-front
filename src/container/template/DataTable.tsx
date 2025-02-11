@@ -7,8 +7,9 @@ import './table.css'
 import { GButton } from "./button"
 import { GInput } from "./input"
 
-interface Data<T extends Object> {
+interface Data<T extends Object, S extends Object> {
     object: T,
+    validation: S,
     list: T[],
     search: Search,
     pageable: Pageable,
@@ -18,7 +19,7 @@ interface Data<T extends Object> {
     another?: any
 }
 
-export const DataTable = <T extends Object>(data: Data<T>) => {
+export const DataTable = <T extends Object, S extends Object>(data: Data<T, S>) => {
     const [state, setState] = useState(data.object)
     const modalRef = useRef<ModalData>(null)
 
@@ -68,7 +69,7 @@ export const DataTable = <T extends Object>(data: Data<T>) => {
             <option value={'ASC'}>ASC</option>
             <option value={'DESC'}>DESC</option>
         </select>
-        <Modal object={state} ref={modalRef} url={data.url} />
+        <Modal object={state} validation={data.validation} ref={modalRef} url={data.url} />
         <table>
             <thead>
                 <tr>
