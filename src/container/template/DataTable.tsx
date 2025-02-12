@@ -90,6 +90,15 @@ export const DataTable = <T extends Object, S extends Object>(data: Data<T, S>) 
                 </tbody>
                 <tfoot>
                     <tr>
+                        <td>
+                        <select name={'size'} onChange={data.function} value={data.search.size}>
+                            <option value={'5'}>5</option>
+                            <option value={'15'}>15</option>
+                            <option value={'25'}>25</option>
+                            <option value={'50'}>50</option>
+                            <option value={'100'}>100</option>
+                        </select>
+                        </td>
                         <td><GButton name={'page'} onClick={data.function} value={0} disabled={data.search.page <= 0}>{"<<"}</GButton></td>
                         <td>{data.search.page > 0 &&
                             <GButton name={'page'} onClick={data.function} value={Number(data.search.page) - 1}>{Number(data.search.page)}</GButton>
