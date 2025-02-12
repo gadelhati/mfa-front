@@ -24,10 +24,10 @@ export const DataTable = <T extends Object, S extends Object>(data: Data<T, S>) 
     const modalRef = useRef<ModalData>(null)
 
     const showType = (content: any) => {
-        if(content === null){
+        if(content === null) {
             return 'null'
         }
-        if(typeof content.getMonth === 'function'){
+        if(typeof content.getMonth === 'function') {
             return 'date'
         }
         switch (typeof content) {
@@ -59,60 +59,56 @@ export const DataTable = <T extends Object, S extends Object>(data: Data<T, S>) 
             modalRef.current.showModal()
         }
     }
-    const fofo = () => {
-        console.log("fofo 1")
-    }
     return (
         <>
-        <GButton onClick={newItem}>New</GButton>
-        <select name={'order'} onChange={data.function} value={data.search.order}>
-            <option value={'ASC'}>ASC</option>
-            <option value={'DESC'}>DESC</option>
-        </select>
-        <Modal object={state} validation={data.validation} ref={modalRef} url={data.url} />
-        <table>
-            <thead>
-                <tr>
-                    <td>{data.search.key}</td>
-                    <td><GInput name={'value'} onChange={data.function}></GInput></td>
-                </tr>
-                <tr key={Math.random()} >
-                    {data.list[0] !== undefined &&
-                        Object.keys(data.list[0]).map((column: string) => {
-                            return <th key={column} data-name={'key'} data-value={column} onClick={data.another}>{column}{column === data.search.key ? (data.search.order === 'ASC' ? '↑' : '↓') : ''}</th>
-                            // return <th key={column} ><input type="checkbox" name={'key'} value={column} onClick={fofo} onChange={data.another}></input>{column}{column === data.search.key ? (data.search.order === 'ASC' ? '↑' : '↓') : ''}</th>
-                        })
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                {data.list.map((row: T) => {
-                    return <tr key={Math.random()} onClick={() => show(row)}>{Object.values(row).map((column: any) => {
-                        return <td key={Math.random()} >{showType(column)}</td>
-                    })}</tr>
-                })}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td><GButton name={'page'} onClick={data.function} value={0} disabled={data.search.page <= 0}>{"<<"}</GButton></td>
-                    <td>{data.search.page > 0 &&
-                        <GButton name={'page'} onClick={data.function} value={Number(data.search.page) - 1}>{Number(data.search.page)}</GButton>
-                    }</td>
-                    <td><GButton name={'page'} onClick={data.function} value={data.search.page}>{Number(data.search.page) + 1}</GButton></td>
-                    <td>{data.search.page < data?.pageable?.totalPages - 1 &&
-                        <GButton name={'page'} onClick={data.function} value={Number(data.search.page) + 1}>{Number(data.search.page) + 2}</GButton>
-                    }</td>
-                    <td><GButton
-                        name={'page'}
-                        onClick={data.function}
-                        value={Number(data?.pageable?.totalPages) - 1}
-                        disabled={data.search.page >= data?.pageable?.totalPages - 1}>
+            <GButton onClick={newItem}>New</GButton>
+            <Modal object={state} validation={data.validation} ref={modalRef} url={data.url} />
+            <table>
+                <thead>
+                    <tr>
+                        <td>{data.search.key}</td>
+                        <td><GInput name={'value'} onChange={data.function}></GInput></td>
+                    </tr>
+                    <tr key={Math.random()} >
+                        {data.list[0] !== undefined &&
+                            Object.keys(data.list[0]).map((column: string) => {
+                                return <>
+                                    <th key={column} data-name={'key'} data-value={column} onClick={data.another}>
+                                        <input type="radio" name={'order'} value={data.search.order === 'ASC' ? 'DESC' : 'ASC'} onChange={data.function} />{column}{column === data.search.key ? (data.search.order === 'ASC' ? '↑' : '↓') : ''}
+                                    </th>
+                                </>
+                            })
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.list.map((row: T) => {
+                        return <tr key={Math.random()} onClick={() => show(row)}>{Object.values(row).map((column: any) => {
+                            return <td key={Math.random()} >{showType(column)}</td>
+                        })}</tr>
+                    })}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td><GButton name={'page'} onClick={data.function} value={0} disabled={data.search.page <= 0}>{"<<"}</GButton></td>
+                        <td>{data.search.page > 0 &&
+                            <GButton name={'page'} onClick={data.function} value={Number(data.search.page) - 1}>{Number(data.search.page)}</GButton>
+                        }</td>
+                        <td><GButton name={'page'} onClick={data.function} value={data.search.page}>{Number(data.search.page) + 1}</GButton></td>
+                        <td>{data.search.page < data?.pageable?.totalPages - 1 &&
+                            <GButton name={'page'} onClick={data.function} value={Number(data.search.page) + 1}>{Number(data.search.page) + 2}</GButton>
+                        }</td>
+                        <td><GButton
+                            name={'page'}
+                            onClick={data.function}
+                            value={Number(data?.pageable?.totalPages) - 1}
+                            disabled={data.search.page >= data?.pageable?.totalPages - 1}>
                             {">>"}
-                    </GButton></td>
-                </tr>
-                <tr key={'totalPages'} ><td>Total Elements: {data.pageable.totalElements}</td></tr>
-            </tfoot>
-        </table>
+                        </GButton></td>
+                    </tr>
+                    <tr key={'totalPages'} ><td>Total Elements: {data.pageable.totalElements}</td></tr>
+                </tfoot>
+            </table>
         </>
     )
 }
